@@ -1,19 +1,16 @@
 # PokeTools
 
-To start your Phoenix server:
+PokeTools is a "Swiss army knife" app related to Pokemon. It currently consists of a random Fakemon (fake Pokemon) idea generator. Other planned tools include a type calculator (including Tera Types from Scarlet and Violet), as well as a mobile-friendly Pokedex.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Make Up a Mon
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Make Up a Mon is an artistic tool that generates random ideas for Fakemon. A new idea will be generated every day, although you can also generate new ideas on command.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+I **heavily** encourage using this for creative purposes -- please draw the prompt you're given and [share it with me](https://twitter.com/dyl_byl)!
 
-## Learn more
+The refresh button at the bottom will generate new ideas on the fly. The share button will create a the Make Up a Mon prompt you used. Share any and all art you've made!
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Try it out at [https://poketools.fly.dev/](https://poketools.fly.dev/)!
+
+![image](https://user-images.githubusercontent.com/6615820/211223099-f3976b2c-7f53-4d51-9108-6e4ed1e830f7.png)
+

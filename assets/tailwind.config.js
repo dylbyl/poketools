@@ -41,10 +41,37 @@ module.exports = {
 					'73%': {
 						transform: 'rotate(-1deg) scale(1.25)'
 					},
+				},
+				wiggleonce: {
+					'0%, 100%': {
+						transform: 'rotate(1deg)'
+					},
+					'10%': {
+						transform: 'rotate(-45deg) translateY(-10px) translateX(-5px)',
+					},
+					'25%': {
+						transform: 'rotate(25deg)'
+					},
+					'33%': {
+						transform: 'rotate(-1deg)'
+					},
+					'40%': {
+						transform: 'rotate(-1deg)'
+					},
+					'50%': {
+						transform: 'rotate(45deg) translateY(-10px) translateX(5px)'
+					},
+					'65%': {
+						transform: 'rotate(-25deg)'
+					},
+					'73%': {
+						transform: 'rotate(-1deg)'
+					},
 				}
 			},
 			animation: {
 				wiggle: 'wiggle 2s ease-in-out infinite',
+				wiggleonce: 'wiggleonce 2s ease-in-out',
 			}
 		},
 	},

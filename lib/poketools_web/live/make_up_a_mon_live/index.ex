@@ -51,44 +51,46 @@ defmodule PokeToolsWeb.MakeUpAMonLive.Index do
   def render(assigns) do
     ~H"""
     <div class="flex flex-col w-screen items-center">
-      <.nav live_action={@live_action} daily_route={@daily_route} random_route={@random_route} />
-      <.buttons tweet_link={@tweet_link} />
-      <%= if @loading do %>
-        <.loading_cards live_action={@live_action} />
-      <% else %>
-        <%= if @live_action == :daily do %>
-          <.card label="Date">
-            <div class="flex justify-center">
-              <%= @random_mon.created_at |> Calendar.strftime("%B %-d, %Y") %>
+      <div class="flex flex-col w-full max-w-[1920px] items-center">
+        <.nav live_action={@live_action} daily_route={@daily_route} random_route={@random_route} />
+        <.buttons tweet_link={@tweet_link} />
+        <%= if @loading do %>
+          <.loading_cards live_action={@live_action} />
+        <% else %>
+          <%= if @live_action == :daily do %>
+            <.card label="Date">
+              <div class="flex justify-center">
+                <%= @random_mon.created_at |> Calendar.strftime("%B %-d, %Y") %>
+              </div>
+            </.card>
+          <% end %>
+          <.card label="Type">
+            <div class="flex flex-row justify-around">
+              <div>
+                <%= capitalize_type(@random_mon.type1) %>
+              </div>
+              <%= if @random_mon.type2 do %>
+                <div>
+                  <%= capitalize_type(@random_mon.type2) %>
+                </div>
+              <% end %>
             </div>
           </.card>
-        <% end %>
-        <.card label="Type">
-          <div class="flex flex-row justify-around">
-            <div>
-              <%= capitalize_type(@random_mon.type1) %>
-            </div>
-            <%= if @random_mon.type2 do %>
-              <div>
-                <%= capitalize_type(@random_mon.type2) %>
-              </div>
-            <% end %>
+          <.list label="Base Design" list={@random_mon.base_designs} />
+          <.list label="Random Related Words" list={@random_mon.descriptors} />
+          <.list label="Related Concepts" list={@random_mon.extra_concepts} />
+          <.list label="Found In" list={@random_mon.found_in} />
+          <div class="flex flex-col w-full items-center lg:flex-row lg:w-3/4 lg:justify-between">
+            <.boolean label="Is it a Legendary?" boolean={@random_mon.is_legendary} class="lg:mr-4" />
+            <.boolean label="Does it have a Mega Evolution?" boolean={@random_mon.has_mega_evolution} />
           </div>
-        </.card>
-        <.list label="Base Design" list={@random_mon.base_designs} />
-        <.list label="Random Related Words" list={@random_mon.descriptors} />
-        <.list label="Related Concepts" list={@random_mon.extra_concepts} />
-        <.list label="Found In" list={@random_mon.found_in} />
-        <div class="flex flex-col w-full items-center lg:flex-row lg:w-3/4 lg:justify-between">
-          <.boolean label="Is it a Legendary?" boolean={@random_mon.is_legendary} class="lg:mr-4" />
-          <.boolean label="Does it have a Mega Evolution?" boolean={@random_mon.has_mega_evolution} />
-        </div>
-        <div class="flex flex-col w-full items-center lg:flex-row lg:w-3/4 lg:justify-between">
-          <.boolean label="Can it Gigantamax?" boolean={@random_mon.has_gigantamax} class="lg:mr-4" />
-          <.boolean label="Does it have an alternate form?" boolean={@random_mon.has_alternate_form} />
-        </div>
-        <.list label="Stats" list={@random_mon.stat_descriptions} vertical={true} />
-      <% end %>
+          <div class="flex flex-col w-full items-center lg:flex-row lg:w-3/4 lg:justify-between">
+            <.boolean label="Can it Gigantamax?" boolean={@random_mon.has_gigantamax} class="lg:mr-4" />
+            <.boolean label="Does it have an alternate form?" boolean={@random_mon.has_alternate_form} />
+          </div>
+          <.list label="Stats" list={@random_mon.stat_descriptions} vertical={true} />
+        <% end %>
+      </div>
     </div>
     """
   end
@@ -138,7 +140,7 @@ defmodule PokeToolsWeb.MakeUpAMonLive.Index do
     <div class={"flex flex-col justify-left my-2 w-3/4 #{@class}"}>
       <div
         :if={@label}
-        class="bg-zinc-600 text-white w-fit mx-auto lg:mx-2 p-1 pb-0 rounded-t-md shadow-md shadow-stone-400"
+        class="bg-zinc-600 text-white w-fit mx-4 lg:mx-2 p-1 pb-0 self-center lg:self-auto rounded-t-md shadow-md shadow-stone-400"
       >
         <div class="bg-zinc-700 rounded-t-sm px-1">
           <div class={
@@ -179,25 +181,27 @@ defmodule PokeToolsWeb.MakeUpAMonLive.Index do
       </div>
       <ul class="flex flex-row justify-around w-1/2">
         <li>
-          <div class="bg-zinc-600 text-white w-fit p-1 rounded-md shadow-md shadow-stone-400">
+          <div class="bg-zinc-600 text-white w-fit p-1 rounded-md shadow-md shadow-stone-400 mx-1 lg:mx-0">
             <div class="bg-zinc-700 rounded-sm px-1">
               <div class={
                 "flex flex-row items-center bg-zinc-800 rounded-t-sm pl-2 pr-8 py-1 w-50 text-white-500 text-center #{large_pixel_font()} hover:text-red-500 #{if @live_action == :daily, do: "text-red-400", else: "text-white"}"
               }>
                 <div class={"material-icons mr-2 #{if @live_action != :daily, do: "invisible"}"}>play_arrow</div>
-                <a href={@daily_route}>Daily Mon</a>
+                <a href={@daily_route} class="block lg:hidden">Daily</a>
+                <a href={@daily_route} class="hidden lg:block">Daily Mon</a>
               </div>
             </div>
           </div>
         </li>
         <li>
-          <div class="bg-zinc-600 text-white w-fit p-1 rounded-md shadow-md shadow-stone-400">
+          <div class="bg-zinc-600 text-white w-fit p-1 rounded-md shadow-md shadow-stone-400 mx-1 lg:mx-0">
             <div class="bg-zinc-700 rounded-sm px-1">
               <div class={
                 "flex flex-row items-center bg-zinc-800 rounded-t-sm pl-2 pr-8 py-1 w-50 text-white-500 text-center #{large_pixel_font()} hover:text-red-500 #{if @live_action == :random, do: "text-red-400", else: "text-white"}"
               }>
                 <div class={"material-icons mr-2 #{if @live_action != :random, do: "invisible"}"}>play_arrow</div>
-                <a href={@random_route}>Random Mon</a>
+                <a href={@random_route} class="block lg:hidden">Random</a>
+                <a href={@random_route} class="hidden lg:block">Random Mon</a>
               </div>
             </div>
           </div>
@@ -212,7 +216,7 @@ defmodule PokeToolsWeb.MakeUpAMonLive.Index do
     <div class="flex flex-row w-60 justify-end fixed bottom-10 right-10 z-40">
       <button
         phx-click="generate_random"
-        class="rounded-full w-20 h-20 mx-4 bg-zinc-800 shadow-md shadow-zinc-800 p-1 hover:animate-wiggle hover:shadow-lg hover:shadow-zinc-800 hover:z-50 duration-100"
+        class="rounded-full w-20 h-20 mx-4 bg-zinc-800 shadow-md shadow-zinc-800 p-1 animate-none lg:hover:animate-wiggle lg:hover:shadow-lg lg:hover:shadow-zinc-800 lg:hover:z-50 duration-100"
       >
         <div class="flex items-center justify-center bg-zinc-700 rounded-full w-full h-full">
           <div class="material-icons text-6xl text-white">
@@ -223,7 +227,7 @@ defmodule PokeToolsWeb.MakeUpAMonLive.Index do
       <a
         href={@tweet_link}
         target="_blank"
-        class="rounded-full w-20 h-20 mx-4 flex flex-col justify-center items-center bg-zinc-800 shadow-md shadow-zinc-800 p-1 hover:animate-wiggle hover:shadow-lg hover:shadow-zinc-800 hover:z-50"
+        class="rounded-full w-20 h-20 mx-4 flex flex-col justify-center items-center bg-zinc-800 shadow-md shadow-zinc-800 p-1 animate-wiggleonce lg:animate-none lg:hover:animate-wiggle lg:hover:shadow-lg lg:hover:shadow-zinc-800 lg:hover:z-50 duration-100"
       >
         <div class="flex items-center justify-center bg-red-400 rounded-t-full w-full h-1/2" />
         <div class="flex items-center justify-center bg-white rounded-b-full w-full h-1/2" />
@@ -333,7 +337,7 @@ defmodule PokeToolsWeb.MakeUpAMonLive.Index do
     day = random_mon.created_at |> Calendar.strftime("%-d")
     day_num = random_mon.created_at |> Calendar.strftime("%d")
     year = random_mon.created_at |> Calendar.strftime("%Y")
-    base_design = random_mon.base_designs |> List.first() |> String.capitalize()
+    base_design = random_mon.base_designs |> List.first()
     types = "#{capitalize_type(random_mon.type1)}#{if random_mon.type2, do: " / #{capitalize_type(random_mon.type2)}"}"
 
     ~s[https://twitter.com/intent/tweet?text=Make%20Up%20a%20Mon%20for%20#{month}%20#{day},%20#{year}!%0A--%20#{types}%20--%20#{base_design}%20--%0A&hashtags=MakeUpAMon,MUAM#{month_num}#{day_num}2023&url=#{current_url}]

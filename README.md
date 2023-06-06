@@ -16,8 +16,8 @@ Try it out at [https://poketools.fly.dev/](https://poketools.fly.dev/)!
 
 ## Running locally
 
-- Install Elixir, Phoenix Framework, etc
+- Install Elixir, Phoenix Framework, [flyctl](https://fly.io/docs/hands-on/install-flyctl/) etc
 - Run `mix deps.get`
 - `iex -S mix phx.server` runs the app and opens iex
+- Optional: If using WSL, run `fly wireguard websockets enable`
 - `flyctl deploy` creates a new deployment for Fly.io
-

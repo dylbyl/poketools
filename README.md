@@ -14,3 +14,10 @@ Try it out at [https://poketools.fly.dev/](https://poketools.fly.dev/)!
 
 ![image](https://user-images.githubusercontent.com/6615820/211223099-f3976b2c-7f53-4d51-9108-6e4ed1e830f7.png)
 
+## Running locally
+
+- Install Elixir, Phoenix Framework, etc
+- Run `mix deps.get`
+- `iex -S mix phx.server` runs the app and opens iex
+- `flyctl deploy` creates a new deployment for Fly.io
+
